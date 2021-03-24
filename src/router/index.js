@@ -1,6 +1,8 @@
 import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router'
-import Login from '../components/login/login'
-import Home from "../components/home"
+import Login from '../views/login'
+import Home from "../views/home"
+import Welcome from '../views/welcome'
+import Users from '../views/user/users'
 
 const routes = [
   {
@@ -9,7 +11,18 @@ const routes = [
   },
   {
     path: '/home',
-    component: Home
+    component: Home,
+    redirect: '/welcome',
+    children : [
+      {
+        path: '/welcome',
+        component: Welcome
+      },
+      {
+        path: '/users',
+        component: Users
+      }
+    ]
   },
   {
     path: '/login',
@@ -24,7 +37,7 @@ const router = createRouter({
   routes
 })
 
-//路由导航
+// 路由导航
 router.beforeEach((to, from, next) => {
   //to 将要访问的路径
   //from 从哪个路径跳转而来

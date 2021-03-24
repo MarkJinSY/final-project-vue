@@ -17,7 +17,16 @@ export default {
 </script>
 
 <style>
+html, body, #app {
+  height: 100%;
+}
+
 #app {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   text-align: center;
 }
 </style>

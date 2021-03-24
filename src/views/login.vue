@@ -3,7 +3,7 @@
         <div class="login_box">
             <!--头像-->
             <div class="avatar_box">
-                <img src="src/assets/logo.png" alt="">
+                <img src="logo.png" alt="">
             </div>
             <!--表单-->
             <el-form ref="loginFormRef" :model="loginForm" label-width="0px" class="login_form" :rules="loginFormRules">
@@ -54,26 +54,23 @@ export default {
             this.$refs.loginFormRef.resetFields();
         },
         login() {
+
+            // let param = new URLSearchParams();
+            // param.append("username", this.loginForm.username);
+            // param.append("password", this.loginForm.password);
+
             this.$refs.loginFormRef.validate(async valid =>{
                 if (!valid) 
-                    return;
-                const {data : res} = await this.$http.post('login', this.loginForm);
-                console.log(res);
-                if (res.meta.status !== 200) 
-                    return this.$message.console.error("登录失败");
-                this.$message.success("登录成功");
-        
-                // this.$http
-                //     .post("login", this.loginForm)
-                //     .then(response => {
-                //         const res = response.data;
-                //         if (res.meta.status != 200) 
-                //             return this.message.error("登录失败");
-                //         this.$message.success("登录成功");    
-                //     });
+                    return ;
 
-                window.sessionStorage.setItem("token", res.date.token);
-                this.$route.push('/home');
+                const {data : res} = await this.$http.post('login', this.loginForm);
+           
+                if (res.meta.status != 200) 
+                    return this.$message.error("登录失败");
+                this.$message.success("登录成功");
+
+                window.sessionStorage.setItem("token", res.data.token);
+                this.$router.push('/home');
             });
            
         }
